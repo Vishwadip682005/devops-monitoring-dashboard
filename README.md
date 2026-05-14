@@ -1,25 +1,40 @@
 # DevOps Monitoring Dashboard
 
-## Project Description
-This project is a Java-based DevOps Monitoring Dashboard that provides real-time system monitoring APIs and a live frontend dashboard.
+## Project Overview
+This is a real-time system monitoring dashboard built using Java, exposing REST APIs and a frontend dashboard. It monitors CPU, memory, system health, and OS details.
+
+---
+
+## Tech Stack
+- Java (HttpServer)
+- Maven
+- Docker
+- HTML, CSS, JavaScript
+- REST APIs
+
+---
 
 ## Features
 - Health Check API
 - CPU Usage Monitoring
 - Memory Usage Monitoring
 - System Information API
-- Live Web Dashboard (HTML + JS)
+- Live Auto-refresh Dashboard UI
 - Dockerized Application
 
-## Tech Stack
-- Java
-- Maven
-- HTTP Server (com.sun.net.httpserver)
-- Docker
-- HTML/CSS/JavaScript
+---
 
-## How to Run
+## API Endpoints
 
-### Local
+- `/api/health` → System health
+- `/api/cpu` → CPU usage
+- `/api/memory` → Memory usage
+- `/api/system` → OS & system info
+
+---
+
+## Docker Setup
+
 ```bash
-mvn exec:java -Dexec.mainClass=com.devops.MainServer
+docker build -t monitoring-dashboard .
+docker run -p 9090:9090 monitoring-dashboard

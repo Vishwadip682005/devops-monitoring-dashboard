@@ -16,7 +16,7 @@ pipeline {
             steps {
                 echo 'Pulling code from GitHub...'
                 git branch: 'main',
-                    url: 'https://github.com/YOUR_USERNAME/monitoring-dashboard.git'
+                    url: 'https://github.com/Vishwadip682005/devops-monitoring-dashboard.git'
             }
         }
 

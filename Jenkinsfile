@@ -2,63 +2,50 @@ pipeline {
     agent any
 
     tools {
-        maven 'MAVEN_HOME'
-        jdk 'JDK17'
-    }
-
-    environment {
-        IMAGE_NAME = "devops-monitoring-dashboard"
+        jdk 'jdk17'
+        maven 'maven'
     }
 
     stages {
 
         stage('Checkout Code') {
             steps {
-                echo 'Pulling code from GitHub...'
-                git branch: 'main',
-                    url: 'https://github.com/Vishwadip682005/devops-monitoring-dashboard.git'
+                git 'https://github.com/Vishwadip682005/devops-monitoring-dashboard.git'
             }
         }
 
-        stage('Build Project') {
+        stage('Build') {
             steps {
-                echo 'Building Maven project...'
-                sh 'mvn clean package'
+                bat 'mvn clean compile'
             }
         }
 
-        stage('Run Tests') {
+        stage('Test') {
             steps {
-                echo 'Running tests...'
-                sh 'mvn test || true'
+                bat 'mvn test'
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Package') {
             steps {
-                echo 'Building Docker image...'
-                sh 'docker build -t $IMAGE_NAME .'
+                bat 'mvn package'
             }
         }
 
-        stage('Run Docker Container') {
+        stage('Run Application') {
             steps {
-                echo 'Stopping old container if exists...'
-                sh 'docker rm -f monitoring-container || true'
-
-                echo 'Running new container...'
-                sh 'docker run -d -p 9090:9090 --name monitoring-container $IMAGE_NAME'
+                bat 'echo Build Successful - App Ready'
             }
         }
     }
 
     post {
         success {
-            echo 'Pipeline executed successfully 🎉'
+            echo 'Pipeline executed successfully 🚀'
         }
 
         failure {
-            echo 'Pipeline failed ❌ Check logs'
+            echo 'Pipeline failed ❌'
         }
     }
 }
